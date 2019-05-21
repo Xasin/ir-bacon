@@ -692,8 +692,30 @@ Wire Wire Line
 $Comp
 L Jumper:SolderJumper_2_Open JP2
 U 1 1 5CE382B3
+P 7225 4050
+F 0 "JP2" H 7500 4050 50  0000 C CNN
+F 1 "SolderJumper_2_Open" H 7225 4164 50  0001 C CNN
+F 2 "Jumper:SolderJumper-2_P1.3mm_Open_RoundedPad1.0x1.5mm" H 7225 4050 50  0001 C CNN
+F 3 "~" H 7225 4050 50  0001 C CNN
+	1    7225 4050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Jumper:SolderJumper_2_Open JP3
+U 1 1 5CE3854F
+P 7225 4150
+F 0 "JP3" H 7500 4150 50  0000 C CNN
+F 1 "SolderJumper_2_Open" H 7225 4264 50  0001 C CNN
+F 2 "Jumper:SolderJumper-2_P1.3mm_Open_RoundedPad1.0x1.5mm" H 7225 4150 50  0001 C CNN
+F 3 "~" H 7225 4150 50  0001 C CNN
+	1    7225 4150
+	1    0    0    -1  
+$EndComp
+$Comp
+L Jumper:SolderJumper_2_Open JP4
+U 1 1 5CE385D8
 P 7225 4250
-F 0 "JP2" H 7500 4250 50  0000 C CNN
+F 0 "JP4" H 7500 4250 50  0000 C CNN
 F 1 "SolderJumper_2_Open" H 7225 4364 50  0001 C CNN
 F 2 "Jumper:SolderJumper-2_P1.3mm_Open_RoundedPad1.0x1.5mm" H 7225 4250 50  0001 C CNN
 F 3 "~" H 7225 4250 50  0001 C CNN
@@ -701,10 +723,34 @@ F 3 "~" H 7225 4250 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Jumper:SolderJumper_2_Open JP3
-U 1 1 5CE3854F
+L power:GND #PWR0118
+U 1 1 5CE39289
+P 7575 4150
+F 0 "#PWR0118" H 7575 3900 50  0001 C CNN
+F 1 "GND" V 7580 4022 50  0000 R CNN
+F 2 "" H 7575 4150 50  0001 C CNN
+F 3 "" H 7575 4150 50  0001 C CNN
+	1    7575 4150
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	7375 4050 7400 4050
+Wire Wire Line
+	7400 4050 7400 4150
+Wire Wire Line
+	7400 4250 7375 4250
+Wire Wire Line
+	7375 4150 7400 4150
+Connection ~ 7400 4150
+Wire Wire Line
+	7400 4150 7400 4250
+Wire Wire Line
+	7400 4150 7575 4150
+$Comp
+L Jumper:SolderJumper_2_Open JP5
+U 1 1 5CE43B7B
 P 7225 4350
-F 0 "JP3" H 7500 4350 50  0000 C CNN
+F 0 "JP5" H 7500 4350 50  0000 C CNN
 F 1 "SolderJumper_2_Open" H 7225 4464 50  0001 C CNN
 F 2 "Jumper:SolderJumper-2_P1.3mm_Open_RoundedPad1.0x1.5mm" H 7225 4350 50  0001 C CNN
 F 3 "~" H 7225 4350 50  0001 C CNN
@@ -712,76 +758,21 @@ F 3 "~" H 7225 4350 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Jumper:SolderJumper_2_Open JP4
-U 1 1 5CE385D8
+L Jumper:SolderJumper_2_Open JP6
+U 1 1 5CE43C12
 P 7225 4450
-F 0 "JP4" H 7500 4450 50  0000 C CNN
+F 0 "JP6" H 7500 4450 50  0000 C CNN
 F 1 "SolderJumper_2_Open" H 7225 4564 50  0001 C CNN
 F 2 "Jumper:SolderJumper-2_P1.3mm_Open_RoundedPad1.0x1.5mm" H 7225 4450 50  0001 C CNN
 F 3 "~" H 7225 4450 50  0001 C CNN
 	1    7225 4450
 	1    0    0    -1  
 $EndComp
-$Comp
-L power:GND #PWR0118
-U 1 1 5CE39289
-P 7575 4350
-F 0 "#PWR0118" H 7575 4100 50  0001 C CNN
-F 1 "GND" V 7580 4222 50  0000 R CNN
-F 2 "" H 7575 4350 50  0001 C CNN
-F 3 "" H 7575 4350 50  0001 C CNN
-	1    7575 4350
-	0    -1   -1   0   
-$EndComp
 Wire Wire Line
-	7375 4250 7400 4250
+	7375 4450 7400 4450
 Wire Wire Line
-	7400 4250 7400 4350
-Wire Wire Line
-	7400 4450 7375 4450
-Wire Wire Line
-	7375 4350 7400 4350
-Connection ~ 7400 4350
-Wire Wire Line
-	7400 4350 7400 4450
-Wire Wire Line
-	7400 4350 7575 4350
-Wire Wire Line
-	6425 4650 7075 4650
-Wire Wire Line
-	6425 4750 7075 4750
-$Comp
-L Jumper:SolderJumper_2_Open JP5
-U 1 1 5CE43B7B
-P 7225 4650
-F 0 "JP5" H 7500 4650 50  0000 C CNN
-F 1 "SolderJumper_2_Open" H 7225 4764 50  0001 C CNN
-F 2 "Jumper:SolderJumper-2_P1.3mm_Open_RoundedPad1.0x1.5mm" H 7225 4650 50  0001 C CNN
-F 3 "~" H 7225 4650 50  0001 C CNN
-	1    7225 4650
-	1    0    0    -1  
-$EndComp
-$Comp
-L Jumper:SolderJumper_2_Open JP6
-U 1 1 5CE43C12
-P 7225 4750
-F 0 "JP6" H 7500 4750 50  0000 C CNN
-F 1 "SolderJumper_2_Open" H 7225 4864 50  0001 C CNN
-F 2 "Jumper:SolderJumper-2_P1.3mm_Open_RoundedPad1.0x1.5mm" H 7225 4750 50  0001 C CNN
-F 3 "~" H 7225 4750 50  0001 C CNN
-	1    7225 4750
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	7375 4650 7400 4650
-Wire Wire Line
-	7400 4650 7400 4450
-Connection ~ 7400 4450
-Wire Wire Line
-	7375 4750 7400 4750
-Wire Wire Line
-	7400 4750 7400 4650
-Connection ~ 7400 4650
+	7400 4450 7400 4350
+Connection ~ 7400 4250
 $Comp
 L power:GND #PWR0119
 U 1 1 5CE4A9E3
@@ -857,7 +848,7 @@ L Connector_Generic:Conn_02x03_Odd_Even J1
 U 1 1 5CE5969A
 P 6275 1175
 F 0 "J1" H 6325 1492 50  0000 C CNN
-F 1 "Conn_02x03_Odd_Even" H 6325 1401 50  0000 C CNN
+F 1 "0015912060" H 6325 1401 50  0000 C CNN
 F 2 "Connector_PinHeader_2.54mm:PinHeader_2x03_P2.54mm_Vertical_SMD" H 6275 1175 50  0001 C CNN
 F 3 "~" H 6275 1175 50  0001 C CNN
 	1    6275 1175
@@ -1092,4 +1083,21 @@ Wire Wire Line
 	3525 2500 3525 2525
 Text Label 4125 2500 2    50   ~ 0
 BAT_SENS
+Wire Wire Line
+	7375 4350 7400 4350
+Connection ~ 7400 4350
+Wire Wire Line
+	7400 4350 7400 4250
+Wire Wire Line
+	6425 3650 7050 3650
+Wire Wire Line
+	7050 3650 7050 4050
+Wire Wire Line
+	7050 4050 7075 4050
+Wire Wire Line
+	7075 4150 7000 4150
+Wire Wire Line
+	7000 4150 7000 3750
+Wire Wire Line
+	7000 3750 6425 3750
 $EndSCHEMATC
