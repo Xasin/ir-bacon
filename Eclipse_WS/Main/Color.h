@@ -37,10 +37,12 @@ public:
 		uint8_t b;
 	};
 
+#pragma pack(1)
 	uint16_t r;
 	uint16_t g;
 	uint16_t b;
 	uint16_t alpha;
+#pragma pack(0)
 
 	static Color HSV(int16_t H, uint8_t S = 255, uint8_t V = 255);
 
