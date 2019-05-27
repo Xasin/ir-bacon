@@ -37,7 +37,7 @@
 #endif
 
 #if !defined(ws2812_pin)
-#define ws2812_pin  4   // Data out pin
+#define ws2812_pin  0   // Data out pin
 #endif
 
 /*

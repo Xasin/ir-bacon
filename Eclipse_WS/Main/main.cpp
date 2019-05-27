@@ -5,102 +5,59 @@
 
 #include <avr/interrupt.h>
 
-extern "C" {
-#include "light_ws2812.h"
-}
-#include "Color.h"
-using namespace Peripheral;
+#include "XasLibs/TIMER/Timer1.h"
 
-#define WS2812_NUM 3
+#include "light_handling.h"
 
-namespace LEDs {
-	Color current[WS2812_NUM] = {};
+volatile uint16_t timer1_sec_presc = 0;
+volatile uint16_t timer1_ledupdate_presc = 0;
+volatile uint32_t global_counter   = 0;
 
-	Color::ColorData raw_leds[WS2812_NUM] = {};
+ISR(TIMER1_COMPA_vect) {
+	global_counter++;
 
-	enum color_flicker_t {
-		TWO_TONE,
-		D_FLICKER,
-		CLOCK,
-		METRONOME,
-	} color_flicker = METRONOME;
+	if(++timer1_sec_presc >= 4000) {
+		timer1_sec_presc = 0;
+		PORTB ^= 1<<5;
+	}
 
-	Color	foreground = 0xFFFFFF;
-	Color	background = Color(Material::PURPLE, 70);
-
-	uint32_t total_period = 100;
-	uint8_t	 first_half	 =  30;
-	uint8_t  beat_count  =  4;
-
-	uint32_t fx_counter = 0;
-
-	void update() {
-		foreground.alpha = 120;
-		background.alpha = 15;
-
-		if(++fx_counter > total_period)
-			fx_counter = 0;
-
-		switch(color_flicker) {
-		case TWO_TONE: {
-			Color tgtColor = foreground;
-			if((first_half*total_period)/255 < fx_counter)
-				tgtColor = background;
-
-			for(uint8_t i=0; i<WS2812_NUM; i++)
-				current[i].merge_overlay(tgtColor);
-		break;
-		}
-
-		case CLOCK: {
-			uint8_t clock_pos  = (WS2812_NUM*fx_counter)/total_period;
-			uint8_t	clock_time = (WS2812_NUM*255*fx_counter) / (total_period);
-
-			for(uint8_t i=0; i<WS2812_NUM; i++) {
-				if((i == clock_pos) && (clock_time < first_half))
-					current[i].merge_overlay(foreground);
-				else
-					current[i].merge_overlay(background);
-			}
-		break;
-		}
-
-		case METRONOME: {
-			uint8_t clock_pos  = (beat_count*fx_counter)/total_period;
-			uint8_t	clock_time = (beat_count*255*fx_counter) / (total_period);
-
-			for(uint8_t i=0; i<WS2812_NUM; i++) {
-				if(clock_pos == 0 && (clock_time < first_half))
-					current[i].merge_overlay(foreground);
-				else if(i == 0 && (clock_time < first_half))
-					current[i].merge_overlay(foreground);
-				else
-					current[i].merge_overlay(background);
-			}
-
-		break;
-		}
-
-
-		default: break;
-		}
-
-		for(uint8_t i=0; i<WS2812_NUM; i++)
-			raw_leds[i] = current[i].getLEDValue();
-		cli();
-		ws2812_setleds(reinterpret_cast<cRGB*>(raw_leds), WS2812_NUM);
-		sei();
+	if(++timer1_ledupdate_presc >= 160) {
+		timer1_ledupdate_presc = 0;
+		LEDs::update();
 	}
 }
 
+void test_button(bool ok) {
+	LEDs::set_preset(LEDs::BTN_PREP);
+	_delay_ms(3000);
+
+	LEDs::set_preset(LEDs::BTN_READY);
+	_delay_ms(1500);
+	LEDs::set_preset(ok ? LEDs::BTN_OK : LEDs::BTN_NOK);
+	_delay_ms(5000);
+}
 
 int main() {
 
-	DDRB |= 1<<5 | 1<<4;
+	DDRB |= 1<<5 | 1;
+
+	Timer1::enable_CTC(4000);
+
+	sei();
+
+	LEDs::set_preset(LEDs::NO_CONN);
+
+	_delay_ms(10000);
 
 	while(true) {
-		_delay_ms(40);
-		LEDs::update();
+		LEDs::set_preset(LEDs::WORK_ACTIVE);
+		_delay_ms(10000);
+
+		LEDs::set_preset(LEDs::WORK_STOP);
+		_delay_ms(3000);
+
+		test_button(false);
+		test_button(true);
 	}
 
 	return 0;
