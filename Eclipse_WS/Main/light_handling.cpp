@@ -10,7 +10,6 @@
 
 namespace LEDs {
 	Color current[WS2812_NUM] = {};
-
 	Color::ColorData raw_leds[WS2812_NUM] = {};
 
 	enum color_flicker_t {
@@ -29,7 +28,7 @@ namespace LEDs {
 
 	uint32_t fx_counter = 0;
 
-	void update() {
+	void precalculate() {
 		if(++fx_counter >= total_period)
 			fx_counter = 0;
 
@@ -77,8 +76,12 @@ namespace LEDs {
 		default: break;
 		}
 
-		for(uint8_t i=0; i<WS2812_NUM; i++)
+		for(uint8_t i=0; i<WS2812_NUM; i++) {
 			raw_leds[i] = current[i].getLEDValue();
+		}
+	}
+
+	void push() {
 		cli();
 		ws2812_setleds(reinterpret_cast<cRGB*>(raw_leds), WS2812_NUM);
 		sei();

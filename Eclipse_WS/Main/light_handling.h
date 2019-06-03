@@ -30,7 +30,8 @@ namespace LEDs {
 		BTN_NOK,
 	};
 
-	void update();
+	void precalculate();
+	void push();
 
 	void set_preset(led_preset_t set);
 }

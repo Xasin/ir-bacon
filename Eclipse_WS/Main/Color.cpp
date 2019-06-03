@@ -5,6 +5,8 @@
  *      Author: xasin
  */
 
+#include <avr/io.h>
+
 #include "Color.h"
 
 namespace Peripheral {
@@ -50,11 +52,20 @@ Color::Color(uint32_t cCode, uint8_t brightness, uint8_t alpha) : Color(cCode, b
 	this->alpha = alpha;
 }
 
+void Color::getLEDValue(Color::ColorData &out) {
+	out.r = (static_cast<uint32_t>(r>>4)*r)/0xFFFFFF;
+	out.g = (static_cast<uint32_t>(g>>4)*g)/0xFFFFFF;
+	out.b = (static_cast<uint32_t>(b>>4)*b)/0xFFFFFF;
+}
+
 Color::ColorData Color::getLEDValue() const {
 	ColorData out = {};
-	out.r = ((uint32_t)r*r)/0xFFFFFF;
-	out.g = ((uint32_t)g*g)/0xFFFFFF;
-	out.b = ((uint32_t)b*b)/0xFFFFFF;
+
+	PORTB |= 1<<5;
+	out.r = (static_cast<uint32_t>(r)*r)/0xFFFFFF;
+	out.g = (static_cast<uint32_t>(g)*g)/0xFFFFFF;
+	out.b = (static_cast<uint32_t>(b)*b)/0xFFFFFF;
+	PORTB &= ~1<<5;
 
 	return out;
 }

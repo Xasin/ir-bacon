@@ -50,6 +50,7 @@ public:
 	Color(uint32_t cCode, uint8_t brightness = 255);
 	Color(uint32_t cCode, uint8_t brightness, uint8_t alpha);
 
+	void getLEDValue(ColorData &out);
 	ColorData getLEDValue() const;
 	uint32_t  getPrintable() const;
 
